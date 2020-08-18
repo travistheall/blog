@@ -1,0 +1,287 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block head_title %}Final Project{% endblock %}
+{% block pagetitle %}
+    Final Project
+{% endblock %}
+{% block content %}
+    <div class="col-12 grid-margin stretch-card">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Final Project</h1>
+                <a class="mr-2" href="{% url "blog-home" %}">Travis Theall</a>
+                <small class="mr-2 text-muted">August 5, 2020</small>
+                <p class="lead">Housing Sales Prices & Venues Data Analysis of Baton Rouge, LA</p>
+            </div>
+        </div>
+        <div class="card my-2">
+            <div class="card-header">
+                <h4 class="card-title">Introduction/Business Problem</h4>
+                <p class="card-description">General Description & Discussion of the Background</p>
+            </div>
+            <div class="card-body">
+                <p>Baton Rouge is the capital city of Louisiana. There are 220,236 people living in Baton Rouge alone,
+                    making it the second largest city in Louisiana behind New Orleans.
+                    There are over 800,000 people living in the Baton Rouge metropolitan area, and the population has
+                    grown 3.4% within the past 10 years.
+                    I will be focusing on East Baton Rouge Parish, the most populated parish in the Baton Rouge
+                    Metropolitan area. **</p>
+                <p>It is home to Louisiana State University (LSU), one of the top-rated universities in Louisiana. LSU
+                    is very cheap for both in and out of state students combined with having a high acceptance rate
+                    means
+                    there are always new students moving into Baton Rouge. Freshman are required to live on campus their
+                    first year.
+                    It is also the 9th largest port in the United States. Workers come and go from the Mississippi River
+                    with goods to ship and hungry bellies every day. </p>
+                <p>All these residents and workers need a place to eat. Students get tired of dining halls and don't
+                    have kitchens in their dorms.
+                    Shipping workers are excited to have a real meal after coming from overseas. Regular working-class
+                    adults sometimes forget or are too lazy to cook for themselves.
+                    Louisiana has a very diverse food culture and almost all styles of food have a place in Baton
+                    Rouge. </p>
+                <p class="text-muted">**For those unfamiliar with Louisiana, a parish is akin to a county in other
+                    states.</p>
+            </div>
+        </div>
+        <div class="card my-2">
+            <div class="card-header">
+                <h4 class="card-title">Target Audience</h4>
+            </div>
+            <div class="card-body">
+                <p> Restaurants are a great investment, if planned properly. Unfortunately, almost half of all
+                    restaurants fail during the first year of opening. My target audience would be anyone who is looking
+                    to start in the
+                    restaurant business within Baton Rouge area. There are many factors to consider such as location,
+                    service style, and the actual food being sold. </p>
+                </p>It is essential to understand the variety of restaurants in each neighborhood. Identifying a market
+                gap within a specific neighborhood could lead to that restaurant being
+                successful. Versus opening a restaurant in a neighborhood that doesn’t need your food and failing. </p>
+            </div>
+        </div>
+        <div class="card my-2">
+            <div class="card-header">
+                <h4 class="card-title">Data</h4>
+            </div>
+            <div class="card-body">
+                <p>Restaurant location is a complex issue in order to answer this I will use Zillow <span><a
+                        href="https://www.zillow.com/baton-rouge-la/home-values/" target="_blank">(1)</a></span>, a popular house
+                    purchasing website, data to get housing information for demographics of each neighborhood.</p>
+                <p>Additionally, I will use the foursquare API <span><a href="https://foursquare.com/" target="_blank">(2)</a></span> to
+                    get a better understanding of the competition within each area by looking at the types of
+                    restaurants that are available in each neighborhood to see which is common and which is popular.</p>
+                <p>Geolocation<a href="https://opendata.arcgis.com/datasets/7c5e82ef83834de2ad2478efc86744ae_0.geojson" target="_blank">(3)</a>
+                    data was utilized getting the neighborhood latitude and longitude coordinates for Baton Rouge.</p>
+            </div>
+        </div>
+        <div class="card my-2">
+            <div class="card-header">
+                <h4 class="card-title">Results</h4>
+            </div>
+            <div class="card-body">
+                <p>I used the python folium library to visualize geographic details of Baton Rouge and its
+                    neighborhoods.</p>
+                <div class="card my-1 col-12">
+                    <div class="card-header">
+                        <h5 class="card-title">Baton Rouge Neighborhoods</h5>
+                    </div>
+                    <img src="/media/data/folium map.PNG" class="card-img-top" alt="Map of Baton Rouge Neighborhoods">
+                    <div class="card-body">
+                        <p class="card-text">A map created from geospatial data of the East Baton Rouge Area</p>
+                        <a href="https://opendata.arcgis.com/datasets/7c5e82ef83834de2ad2478efc86744ae_0.geojson" target="_blank"
+                           class="btn btn-primary btn-sm text-left">Housing Data</a>
+                    </div>
+                </div>
+                <div class="card my-1">
+                    <div class="row no-gutters">
+                        <div class="col-9">
+                            <img src="/media/data/avgCoordDataFrame.PNG" class="card-img"
+                                 alt="Pandas Data Frame Coordinates Head">
+                        </div>
+                        <div class="col">
+                            <div class="card-body">
+                                <p class="card-text">Pandas Data Frame Head</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>I utilized the Foursquare API to explore the restaurants in each neighborhood and
+                    segment them. I designed the limit as 50 venues. I used the section "food" and sorted by popularity.
+                    The radius is the maximum distance between the two geolocations converted to meters from each
+                    neighborhood based on
+                    their given latitude and longitude information. The radius is the maximum distance between the two
+                    geolocations converted to meters from each neighborhood based on their given latitude and longitude
+                    information.</p>
+                <p>The search resulted in 1514 venues with 57 unique Restaurant Categories</p>
+                <p>Each of these results was run through a KMeans clustering algorithm. The best K was
+                    determined using the elbow method. 3 clusters was determined to be the best grouping.</p>
+
+                <div class="card-deck">
+                    <div class="card">
+                        <img src="/media/data/elbowDistortion.PNG" class="card-img-top"
+                             alt="eblow method using distortion">
+                        <div class="card-footer">
+                            <h5 class="card-title">Elbow Method using distortion</h5>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="/media/data/elbowintertia.PNG" class="card-img-top" alt="elbow method using inertia">
+                        <div class="card-footer">
+                            <h5 class="card-title">Elbow Method using inertia</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card my-1 col-12">
+                    <div class="card-header">
+                        <h5 class="card-title">Baton Rouge Neighborhoods Most Common Restaurants Clusters</h5>
+                    </div>
+                    <img src="/media/data/folium Cluster.PNG" class="card-img-top"
+                         alt="Map of Baton Rouge Neighborhood Clusters">
+                    <div class="card-body">
+                        <p class="card-text">A map created from K-means clustering of the East Baton Rouge Area. The
+                            Zillow Housing Score was added to make a Cholorpleth map. Data could not be obtained for the
+                            black neighborhoods.
+                            The darker green neighborhoods where housing is more expensive. While the lighter green
+                            neighborhoods are cheaper.</p>
+                        <a href="https://www.zillow.com/baton-rouge-la/home-values/"
+                           class="btn btn-primary btn-sm text-left" target="_blank">Housing Data</a>
+                        <a href="https://github.com/travistheall/Coursera_Capstone/blob/master/notebooks/Api%20Popular%20Restaurants.ipynb"
+                           class="btn btn-primary btn-sm text-left" target="_blank">Jupytr Notebook</a>
+                    </div>
+                </div>
+                <div class="card my-2">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            The most common Restaurants in each cluster can be visualized
+                            <span><a href="{% url 'finalDataListCommon' %}">here</a></span>.
+                        </h5>
+                    </div>
+                </div>
+                <div class="card-deck">
+                    <div class="card">
+                        <img src="/media/data/MostCommonCluster0.PNG" class="card-img-top" alt="Cluster 0 bar graph">
+                        <div class="card-body">
+                            <h5 class="card-title">Cluster 0 (Red Dots) Common Categories</h5>
+                            <p class="card-text">Most Common Restaurants in this cluster are primarily American
+                                Restaurants and burger joints. These are located in the Northern Most neighborhoods and
+                                the Southern half of Baton Rouge.
+                                This is located in the area where the average housing index is the highest at
+                                $218,431</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="/media/data/MostCommonCluster1.PNG" class="card-img-top" alt="Cluster 1 bar graph">
+                        <div class="card-body">
+                            <h5 class="card-title">Cluster 1 (South Purple Dots) Common Categories</h5>
+                            <p class="card-text">Most Common Restaurants in this cluster are "Food" This means that they
+                                are not typical restaurants. These are places that serve food, but aren't restaurants
+                                like a food bank.
+                                This is located in the area where the average housing index is the lowest at $77,200</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="/media/data/MostCommonCluster2.PNG" class="card-img-top" alt="Cluster 2 bar graph">
+                        <div class="card-body">
+                            <h5 class="card-title">Cluster 2 (Greene Dots) Common Categories</h5>
+                            <p class="card-text">Most Common Restaurants in this cluster are Fast Food Take Out
+                                locations.
+                                This is located in the area where the average housing index is in the middle at
+                                $92,246</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card my-2">
+                    <div class="card-header">
+                    <h5 class="card-title">
+                        While these may be the most common restaurants, the most popular restaurants can been seen
+                            <span><a href="{% url 'finalDataListPopular' %}">here</a></span>.
+                    </h5>
+                    </div>
+                </div>
+                <div class="card my-2 col-12">
+                    <div class="card-header">
+                        <h5 class="card-title">Baton Rouge Neighborhoods Popular Restaurants Clusters</h5>
+                    </div>
+                    <img src="/media/data/folium Pop.PNG" class="card-img-top"
+                         alt="Map of Baton Rouge Neighborhood Clusters">
+                    <div class="card-body">
+                        <p class="card-text">A map created from K-means clustering of the East Baton Rouge Area. The
+                            Zillow Housing Score was added to make a Cholorpleth map. Data could not be obtained for the
+                            black neighborhoods.
+                            The darker green neighborhoods where housing is more expensive. While the lighter green
+                            neighborhoods are cheaper.</p>
+                        <a href="https://www.zillow.com/baton-rouge-la/home-values/" target="_blank"
+                           class="btn btn-primary btn-sm text-left">Zillow Data (2)</a>
+                        <a href="https://github.com/travistheall/Coursera_Capstone/blob/master/notebooks/Api%20Popular%20Restaurants.ipynb" targer="_blank"
+                           class="btn btn-primary btn-sm text-left">Jupyter Notebook</a>
+                    </div>
+                </div>
+                <div class="card-deck my-2">
+                    <div class="card">
+                        <img src="/media/data/popClust0.PNG" class="card-img-top" alt="Popular Cluster 0 bar graph">
+                        <div class="card-body">
+                            <h5 class="card-title">Cluster 0 (Red Dots) Popular Categories</h5>
+                            <p class="card-text">Most Popular Restaurants in this cluster are primarily Italian
+                                Restaurants and burger joints. These are located in the Northern Most neighborhoods and
+                                the Southern half of Baton Rouge.
+                                This is located in the area where the average housing index is in the middle at
+                                $166,025</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="/media/data/popClust1.PNG" class="card-img-top" alt="Popular Cluster 1 bar graph">
+                        <div class="card-body">
+                            <h5 class="card-title">Cluster 1 (South Purple Dots) Common Categories</h5>
+                            <p class="card-text">Most Common Restaurants in this cluster are Fast Food restaurants.
+                                This is located in the area where the average housing index is the highest at
+                                $192,875</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="/media/data/popClust2.PNG" class="card-img-top" alt="Cluster 2 bar graph">
+                        <div class="card-body">
+                            <h5 class="card-title">Cluster 2 (Greene Dots) Common Categories</h5>
+                            <p class="card-text">Most Common Restaurants in this cluster are American Restaurants.
+                                This is located in the area where the average housing index is in the middle at
+                                $66,175</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card my-2">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        Conclusions
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <p>I think it's important to consider both the most common restaurants in each area and the most
+                        popular restaurants in each area.
+                        A potential restaurant opener would want to avoid opening in clusters where their restaurant is
+                        too common. They would also want to open in a location where their restaurant type is more
+                        popular.
+                        There is much more work that can be done to analyze this data further such as looking into which
+                        specific restaurants are popular or common in each neighborhood.</p>
+                </div>
+                <div class="card-footer text-left">
+                    <p>The table of the most common and most popular restaurant categories can be seen <span><a
+                            href="{% url 'finalDataListBoth' %}">here</a></span>.</p>
+                </div>
+            </div>
+            <div class="card my-2">
+                <div class="card-header">
+                    <h4 class="card-title">References</h4>
+                </div>
+                <div class="card-body">
+                    <ol>
+                        <li><a href="https://opendata.arcgis.com/datasets/7c5e82ef83834de2ad2478efc86744ae_0.geojson" target="_blank">https://opendata.arcgis.com/datasets/7c5e82ef83834de2ad2478efc86744ae_0.geojson</a>
+                        </li>
+                        <li><a href="https://www.zillow.com/baton-rouge-la/home-values/" target="_blank">https://www.zillow.com/baton-rouge-la/home-values/</a>
+                        </li>
+                        <li><a href="https://foursquare.com/" target="_blank">https://foursquare.com/</a></li>
+                        <li><a href="https://github.com/travistheall/Coursera_Capstone" target="_blank">My Github Repo</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

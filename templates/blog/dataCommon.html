@@ -1,0 +1,55 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Baton Rouge's Most Common Restaurant Categories</h4>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Neighborhood</th>
+                                <th>Cluster Label</th>
+                                <th>Zillow Home Value Index</th>
+                                <th>1rst Most Common</th>
+                                <th>2nd Most Common</th>
+                                <th>3rd Most Common</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in mostCommon %}
+                                <tr>
+                                    <td>{{ data.neigh.name }}</td>
+                                    <td>{{ data.neigh.cluster_label_com }}</td>
+                                    <td>${{ data.neigh.zillow_value }}</td>
+                                    <td>{{ data.number_1st_most_common_venue }}</td>
+                                    <td>{{ data.number_2nd_most_common_venue }}</td>
+                                    <td>{{ data.number_3rd_most_common_venue }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if page_obj.has_previous %}
+                                <a href="?page=1"> First </a>
+                                <a href="?page={{ page_obj.previous_page_number }}"> Previous </a>
+                            {% endif %}
+
+                            <span class="current">
+                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                            </span>
+
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}"> Next </a>
+                                <a href="?page={{ page_obj.paginator.num_pages }}"> Last </a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
