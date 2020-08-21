@@ -8,10 +8,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-import os
 from .models import Post, Mostcommon, Mostpopular, Both
-from djangoProject.settings import CERT_DIR
-import pandas as pd
 
 
 def home(request):
@@ -27,6 +24,7 @@ class finalDataListCommon(ListView):
     context_object_name = 'mostCommon'
     model = Mostcommon
     ordering = ['neigh']
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['Data'] = 'Data'
@@ -41,6 +39,7 @@ class finalDataListPopular(ListView):
     context_object_name = 'mostPopular'
     model = Mostpopular
     ordering = ['neigh']
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['Data'] = 'Data'
@@ -54,6 +53,7 @@ class finalDataListBoth(ListView):
     template_name = 'blog/dataBoth.html'
     context_object_name = 'both'
     model = Both
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['Data'] = 'Data'
